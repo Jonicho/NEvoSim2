@@ -1,8 +1,17 @@
 package de.jrk.nevosim2.gui;
 
+import java.awt.Component;
 import java.awt.event.WindowEvent;
 
-public class WindowListener implements java.awt.event.WindowListener {
+import javax.swing.JOptionPane;
+
+public class WindowListenerImpl implements java.awt.event.WindowListener {
+
+	private Component parentComponent;
+
+	public WindowListenerImpl(Component parentComponent) {
+		this.parentComponent = parentComponent;
+	}
 
 	@Override
 	public void windowOpened(WindowEvent e) {
@@ -11,7 +20,11 @@ public class WindowListener implements java.awt.event.WindowListener {
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		System.exit(0);
+		int option = JOptionPane.showConfirmDialog(parentComponent, "Do you really want to exit?", "Exit?",
+				JOptionPane.YES_NO_CANCEL_OPTION);
+		if (option == JOptionPane.YES_OPTION) {
+			System.exit(0);
+		}
 	}
 
 	@Override

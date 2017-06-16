@@ -1,4 +1,4 @@
-package de.jrk.nevosim2.creature;
+package de.jrk.nevosim2.simulation.creature;
 
 import de.jrk.nevosim2.neuralnetwork.NeuralNetwork;
 import de.jrk.nevosim2.util.Util;
@@ -6,7 +6,7 @@ import de.jrk.nevosim2.util.Util;
 public class Brain {
 	private final int inputAmount = 1;
 	private final int outputAmount = 2;
-	private final NeuralNetwork neuralNetwork = new NeuralNetwork(new int[] { inputAmount, 1, outputAmount });
+	private final NeuralNetwork neuralNetwork = new NeuralNetwork(new int[] { inputAmount, 2, outputAmount });
 	private final double[] inputs = new double[inputAmount];
 	private final double[] outputs = new double[outputAmount];
 	
@@ -24,7 +24,7 @@ public class Brain {
 		Util.storeIn(neuralNetwork.calculate(inputs), outputs);
 	}
 	
-	public void setFood(double food) {
+	public void setEnergy(double food) {
 		inputs[0] = food;
 	}
 	
