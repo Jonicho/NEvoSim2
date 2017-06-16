@@ -5,6 +5,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 
+import de.jrk.nevosim2.Main;
 import de.jrk.nevosim2.simulation.Simulation;
 
 public class Gui implements Runnable {
@@ -23,8 +24,14 @@ public class Gui implements Runnable {
 		
 		JMenuBar menuBar = new JMenuBar();
 		{
+			JButton buttonNewWindow = new JButton("New Window");
+			buttonNewWindow.addActionListener(e -> {
+				Main.addWindow();
+			});
+			menuBar.add(buttonNewWindow);
+		}
+		{
 			JButton buttonPlay = new JButton("Play");
-			buttonPlay.setToolTipText("Play");
 			buttonPlay.addActionListener(e -> {
 				Simulation.run = !Simulation.run;
 			});

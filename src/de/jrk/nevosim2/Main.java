@@ -1,5 +1,7 @@
 package de.jrk.nevosim2;
 
+import java.util.ArrayList;
+
 import de.jrk.nevosim2.gui.Gui;
 import de.jrk.nevosim2.simulation.Simulation;
 
@@ -7,6 +9,7 @@ public class Main {
 
 	private static boolean gui = false;
 	public static Simulation simulation = new Simulation();
+	private static ArrayList<Thread> windowThreads = new ArrayList<>();
 
 	public static void main(String[] args) {
 		if (args.length < 1) {
@@ -21,10 +24,13 @@ public class Main {
 		simThread.start();
 
 		if (gui) {
-			Thread guiThread = new Thread(new Gui());
-			guiThread.setName("NEvoSim2 gui thread");
-			guiThread.start();
+			addWindow();
 		}
+	}
+	
+	public static void addWindow() {
+		Thread guiThread = new Thread(new Gui(), "NEvoSim2 gui thread " + windowThreads.size());
+		guiThread.start();
 	}
 
 	public static boolean isGui() {
