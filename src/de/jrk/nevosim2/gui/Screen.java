@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JLabel;
 
@@ -16,6 +17,8 @@ public class Screen extends JLabel {
 	private static final long serialVersionUID = -3223288134920254727L;
 	private MouseHandler mouseHandler = new MouseHandler();
 	private double zoom = 1;
+	private int posX;
+	private int posY;
 	
 	public Screen() {
 		addMouseListener(mouseHandler);
@@ -27,8 +30,18 @@ public class Screen extends JLabel {
 	protected void paintComponent(Graphics g) {
 		Dimension size = getSize();
 		int screenSize = (int) (size.getHeight() > size.getWidth() ? size.getWidth() : size.getHeight());
-		screenSize *= zoom;
-		Main.simulation.draw(g, screenSize);
+		
+		BufferedImage screenImage = new BufferedImage((int) (screenSize * zoom), (int) (screenSize * zoom), BufferedImage.TYPE_INT_ARGB);
+		Graphics screenImageG = screenImage.getGraphics();
+		
+		Main.simulation.draw(screenImageG, (int) (screenSize * zoom));
+		
+		g.drawImage(screenImage, posX, posY, this);
+	}
+	
+	private void moveWorld(int x, int y) {
+		posX += x;
+		posY += y;
 	}
 	
 	private class MouseHandler implements MouseListener, MouseMotionListener, MouseWheelListener {
@@ -63,21 +76,28 @@ public class Screen extends JLabel {
 
 		@Override
 		public void mouseDragged(MouseEvent e) {
+			moveWorld(e.getX() - mousePosX, e.getY() - mousePosY);
+			updateMousePos(e);
 		}
 
 		@Override
 		public void mouseMoved(MouseEvent e) {
-			mousePosX = e.getX();
-			mousePosY = e.getY();
+			updateMousePos(e);
 		}
 
 		@Override
 		public void mouseWheelMoved(MouseWheelEvent e) {
 			if (e.getWheelRotation() > 0 && zoom > 0.5) {
-				zoom /= 2;
-			} else if (e.getWheelRotation() < 0 && zoom < 8.0) {
-				zoom *= 2;
+				zoom /= 1.5;
+			} else if (e.getWheelRotation() < 0 && zoom < 3.0) {
+				zoom *= 1.5;
 			}
+			System.out.println(zoom);
+		}
+		
+		private void updateMousePos(MouseEvent e) {
+			mousePosX = e.getX();
+			mousePosY = e.getY();
 		}
 
 	}
