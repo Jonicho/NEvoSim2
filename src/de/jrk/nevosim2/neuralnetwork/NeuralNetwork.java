@@ -1,9 +1,10 @@
 package de.jrk.nevosim2.neuralnetwork;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class NeuralNetwork {
-	
+public class NeuralNetwork implements Serializable {
+	private static final long serialVersionUID = 240125117250288172L;
 	private ArrayList<InputNeuron> inputNeurons = new ArrayList<>();
 	private ArrayList<ArrayList<WorkingNeuron>> workingNeurons = new ArrayList<>();
 	private ArrayList<WorkingNeuron> outputNeurons = new ArrayList<>();

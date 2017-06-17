@@ -1,6 +1,9 @@
 package de.jrk.nevosim2.neuralnetwork;
 
-public class InputNeuron extends Neuron {
+import java.io.Serializable;
+
+public class InputNeuron extends Neuron implements Serializable {
+	private static final long serialVersionUID = -2891567761325650071L;
 
 	@Override
 	public double getValue() {

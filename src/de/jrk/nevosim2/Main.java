@@ -8,7 +8,7 @@ import de.jrk.nevosim2.simulation.Simulation;
 public class Main {
 
 	private static boolean gui = false;
-	public static Simulation simulation = new Simulation();
+	public static Simulation simulation = new Simulation(true);
 	private static ArrayList<Thread> windowThreads = new ArrayList<>();
 
 	public static void main(String[] args) {

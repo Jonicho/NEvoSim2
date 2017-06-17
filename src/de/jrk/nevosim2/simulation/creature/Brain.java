@@ -1,12 +1,15 @@
 package de.jrk.nevosim2.simulation.creature;
 
+import java.io.Serializable;
+
 import de.jrk.nevosim2.neuralnetwork.NeuralNetwork;
 import de.jrk.nevosim2.util.Util;
 
-public class Brain {
+public class Brain implements Serializable {
+	private static final long serialVersionUID = 3824508521991639653L;
 	private final int inputAmount = 1;
 	private final int outputAmount = 2;
-	private final NeuralNetwork neuralNetwork = new NeuralNetwork(new int[] { inputAmount, 2, outputAmount });
+	private final NeuralNetwork neuralNetwork = new NeuralNetwork(new int[] { inputAmount, 5, 5, 5, outputAmount });
 	private final double[] inputs = new double[inputAmount];
 	private final double[] outputs = new double[outputAmount];
 	

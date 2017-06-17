@@ -1,7 +1,10 @@
 package de.jrk.nevosim2.neuralnetwork.activationfunction;
 
-public class ActivationFunctionSoftsign implements ActivationFunction {
-	
+import java.io.Serializable;
+
+public class ActivationFunctionSoftsign implements ActivationFunction, Serializable {
+	private static final long serialVersionUID = 3194657596804707898L;
+
 	protected ActivationFunctionSoftsign() {
 	}
 

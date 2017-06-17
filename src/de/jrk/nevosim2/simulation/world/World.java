@@ -3,20 +3,22 @@ package de.jrk.nevosim2.simulation.world;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import de.jrk.nevosim2.simulation.creature.Creature;
 import de.jrk.nevosim2.simulation.world.Tile.Type;
 import de.jrk.nevosim2.util.Vector;
 
-public class World {
-	private final Tile[][] world = new Tile[101][101];
+public class World implements Serializable {
+	private static final long serialVersionUID = -1441875949063228959L;
+	private final Tile[][] world = new Tile[100][100];
 	private ArrayList<Creature> creatures = new ArrayList<>();
 
 	public World() {
 		generateEmptyWorld();
 
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 1000; i++) {
 			creatures.add(new Creature(new Vector(Math.random(), Math.random())));
 		}
 	}
@@ -28,8 +30,17 @@ public class World {
 			}
 		}
 		
+		ArrayList<Creature> toBeRemoved = new ArrayList<>();
+		
 		for (Creature creature : creatures) {
 			creature.update();
+			if (!creature.isAlive()) {
+				toBeRemoved.add(creature);
+			}
+		}
+		
+		for (Creature creature : toBeRemoved) {
+			creatures.remove(creature);
 		}
 	}
 

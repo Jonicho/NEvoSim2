@@ -21,6 +21,7 @@ public class Screen extends JLabel {
 	private int posY;
 	
 	public Screen() {
+		super();
 		addMouseListener(mouseHandler);
 		addMouseMotionListener(mouseHandler);
 		addMouseWheelListener(mouseHandler);
@@ -30,13 +31,14 @@ public class Screen extends JLabel {
 	protected void paintComponent(Graphics g) {
 		Dimension size = getSize();
 		int screenSize = (int) (size.getHeight() > size.getWidth() ? size.getWidth() : size.getHeight());
+		screenSize *= zoom;
 		
-		BufferedImage screenImage = new BufferedImage((int) (screenSize * zoom), (int) (screenSize * zoom), BufferedImage.TYPE_INT_ARGB);
+		BufferedImage screenImage = new BufferedImage(screenSize, screenSize, BufferedImage.TYPE_INT_ARGB);
 		Graphics screenImageG = screenImage.getGraphics();
 		
-		Main.simulation.draw(screenImageG, (int) (screenSize * zoom));
+		if (Main.simulation != null) Main.simulation.draw(screenImageG, screenSize);
 		
-		g.drawImage(screenImage, posX, posY, this);
+		g.drawImage(screenImage, posX - screenSize / 2, posY - screenSize / 2, screenSize, screenSize, this);
 	}
 	
 	private void moveWorld(int x, int y) {

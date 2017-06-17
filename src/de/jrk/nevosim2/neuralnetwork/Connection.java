@@ -1,8 +1,11 @@
 package de.jrk.nevosim2.neuralnetwork;
 
+import java.io.Serializable;
+
 import de.jrk.nevosim2.util.Util;
 
-public class Connection {
+public class Connection implements Serializable {
+	private static final long serialVersionUID = 1923741763489557775L;
 	private double weight;
 	private Neuron neuron;
 	

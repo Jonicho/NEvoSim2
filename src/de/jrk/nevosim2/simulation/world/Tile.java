@@ -1,6 +1,10 @@
 package de.jrk.nevosim2.simulation.world;
 
-public class Tile {
+import java.io.Serializable;
+
+public class Tile implements Serializable {
+	private static final long serialVersionUID = -4246435246612818750L;
+
 	enum Type {
 		WATER, LAND
 	}

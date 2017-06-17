@@ -1,11 +1,12 @@
 package de.jrk.nevosim2.neuralnetwork;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import de.jrk.nevosim2.neuralnetwork.activationfunction.ActivationFunction;
 
-public class WorkingNeuron extends Neuron {
-	
+public class WorkingNeuron extends Neuron implements Serializable {
+	private static final long serialVersionUID = -3211341414308766648L;
 	protected ArrayList<Connection> connections = new ArrayList<>();
 	private boolean valid = false;
 	private ActivationFunction activationFunction = ActivationFunction.softsign;

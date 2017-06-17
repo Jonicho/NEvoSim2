@@ -1,9 +1,13 @@
 package de.jrk.nevosim2.gui;
 
 import java.awt.Dimension;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 
 import de.jrk.nevosim2.Main;
 import de.jrk.nevosim2.simulation.Simulation;
@@ -44,9 +48,16 @@ public class Gui implements Runnable {
 			});
 			menuBar.add(buttonFast);
 		}
+		{
+			JButton buttonSave = new JButton("Save");
+			buttonSave.addActionListener(e -> {
+				Main.simulation.save();
+			});
+			menuBar.add(buttonSave);
+		}
 		frame.setJMenuBar(menuBar);
 		
-		frame.addWindowListener(new WindowListenerImpl(frame));
+		frame.addWindowListener(new WindowListenerImpl());
 		
 		frame.setVisible(true);
 
@@ -61,6 +72,48 @@ public class Gui implements Runnable {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	private class WindowListenerImpl implements WindowListener {
+
+		@Override
+		public void windowOpened(WindowEvent e) {
+
+		}
+
+		@Override
+		public void windowClosing(WindowEvent e) {
+			int option = JOptionPane.showConfirmDialog(frame, "Do you really want to exit?", "Exit?",
+					JOptionPane.YES_NO_CANCEL_OPTION);
+			if (option == JOptionPane.YES_OPTION) {
+				System.exit(0);
+			}
+		}
+
+		@Override
+		public void windowClosed(WindowEvent e) {
+
+		}
+
+		@Override
+		public void windowIconified(WindowEvent e) {
+
+		}
+
+		@Override
+		public void windowDeiconified(WindowEvent e) {
+
+		}
+
+		@Override
+		public void windowActivated(WindowEvent e) {
+
+		}
+
+		@Override
+		public void windowDeactivated(WindowEvent e) {
+
 		}
 	}
 }

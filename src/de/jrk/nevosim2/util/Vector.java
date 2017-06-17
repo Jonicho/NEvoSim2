@@ -1,6 +1,9 @@
 package de.jrk.nevosim2.util;
 
-public class Vector {
+import java.io.Serializable;
+
+public class Vector implements Serializable {
+	private static final long serialVersionUID = 9161810857195109198L;
 	double x;
 	double y;
 
