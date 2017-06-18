@@ -28,13 +28,6 @@ public class Gui implements Runnable {
 		
 		JMenuBar menuBar = new JMenuBar();
 		{
-			JButton buttonNewWindow = new JButton("New Window");
-			buttonNewWindow.addActionListener(e -> {
-				Main.addWindow();
-			});
-			menuBar.add(buttonNewWindow);
-		}
-		{
 			JButton buttonPlay = new JButton("Play");
 			buttonPlay.addActionListener(e -> {
 				Simulation.run = !Simulation.run;
@@ -58,6 +51,7 @@ public class Gui implements Runnable {
 		frame.setJMenuBar(menuBar);
 		
 		frame.addWindowListener(new WindowListenerImpl());
+		frame.addKeyListener(screen.new KeyHandler());
 		
 		frame.setVisible(true);
 

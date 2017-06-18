@@ -1,7 +1,8 @@
 package de.jrk.nevosim2.gui;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -19,7 +20,7 @@ public class Screen extends JLabel {
 	private double zoom = 1;
 	private int posX;
 	private int posY;
-	
+
 	public Screen() {
 		super();
 		addMouseListener(mouseHandler);
@@ -29,25 +30,30 @@ public class Screen extends JLabel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		Dimension size = getSize();
-		int screenSize = (int) (size.getHeight() > size.getWidth() ? size.getWidth() : size.getHeight());
+		int screenSize = (int) (getHeight() > getWidth() ? getWidth() : getHeight());
 		screenSize *= zoom;
-		
+
 		BufferedImage screenImage = new BufferedImage(screenSize, screenSize, BufferedImage.TYPE_INT_ARGB);
 		Graphics screenImageG = screenImage.getGraphics();
-		
-		if (Main.simulation != null) Main.simulation.draw(screenImageG, screenSize);
-		
-		g.drawImage(screenImage, posX - screenSize / 2, posY - screenSize / 2, screenSize, screenSize, this);
+
+		if (Main.simulation != null)
+			Main.simulation.draw(screenImageG, screenSize);
+
+		g.drawImage(screenImage, posX, posY, screenSize, screenSize, this);
 	}
-	
+
 	private void moveWorld(int x, int y) {
 		posX += x;
 		posY += y;
 	}
-	
+
+	private void resetView() {
+		posX = getWidth() / 2;
+		posY = getHeight() / 2;
+	}
+
 	private class MouseHandler implements MouseListener, MouseMotionListener, MouseWheelListener {
-		
+
 		public int mousePosX;
 		public int mousePosY;
 
@@ -96,10 +102,34 @@ public class Screen extends JLabel {
 			}
 			System.out.println(zoom);
 		}
-		
+
 		private void updateMousePos(MouseEvent e) {
 			mousePosX = e.getX();
 			mousePosY = e.getY();
+		}
+	}
+
+	public class KeyHandler implements KeyListener {
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			System.out.println("Key released: " + e.getKeyChar());
+			switch (e.getKeyCode()) {
+			case KeyEvent.VK_R:
+				resetView();
+				break;
+
+			default:
+				break;
+			}
 		}
 
 	}
