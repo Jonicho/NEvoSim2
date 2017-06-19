@@ -1,12 +1,14 @@
 package de.jrk.nevosim2;
 
+import java.util.Random;
+
 import de.jrk.nevosim2.gui.Gui;
 import de.jrk.nevosim2.simulation.Simulation;
 
 public class Main {
-
+	public static final Random rand = new Random();
 	private static boolean gui = false;
-	public static Simulation simulation = new Simulation(true);
+	public static Simulation simulation = new Simulation(false);
 
 	public static void main(String[] args) {
 		if (args.length < 1) {

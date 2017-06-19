@@ -9,11 +9,12 @@ import de.jrk.nevosim2.util.Vector;
 public class Creature implements Serializable {
 	private static final long serialVersionUID = 8246894358517353395L;
 	private Vector pos = new Vector();
-	private double size = 0.1;
+	private double size = 0.01;
 	private Color color;
 	private Brain brain = new Brain();
 	private double direction = 0;
-	private double speed = 0;
+	private Vector directionVector;
+	private double speed;
 	private double energy = 0;
 	private boolean alive = true;
 
@@ -25,9 +26,10 @@ public class Creature implements Serializable {
 
 	public void update() {
 		updateBrain();
-
-		pos.add(new Vector(Math.sin(Math.toRadians(direction)) * speed,
-				Math.cos(Math.toRadians(direction)) * speed));
+		
+		directionVector = new Vector(Math.sin(direction) * speed,
+				Math.cos(direction) * speed);
+		pos.add(directionVector);
 		
 		if (energy < 100) {
 			alive = false;
@@ -38,12 +40,11 @@ public class Creature implements Serializable {
 		brain.setEnergy(energy);
 
 		brain.calculate();
-		direction += brain.getRotation();
+		direction += brain.getRotation() / 100;
 		speed = brain.getSpeed() / 1000;
 	}
 
 	public void draw(Graphics g, int screenSize) {
-		size = 0.01;
 		g.setColor(color);
 		int x = (int) ((pos.getX()) * screenSize);
 		int y = (int) ((pos.getY()) * screenSize);
