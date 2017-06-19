@@ -23,4 +23,9 @@ public class Tile implements Serializable {
 	public double getFood() {
 		return food;
 	}
+	
+	public void grow(double d) {
+		food += d;
+		if (food > 1.0) food = 1.0;
+	}
 }
