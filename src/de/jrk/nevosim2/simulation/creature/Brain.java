@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 import de.jrk.nevosim2.neuralnetwork.NeuralNetwork;
 import de.jrk.nevosim2.util.Util;
-import de.jrk.nevosim2.util.Vector;
+import de.jrk.nevosim2.util.Vec2d;
 
 public class Brain implements Serializable {
 	private static final long serialVersionUID = 3824508521991639653L;
 	private final int inputAmount = 12;
 	private final int outputAmount = 2;
-	private final NeuralNetwork neuralNetwork = new NeuralNetwork(new int[] { inputAmount, 5, outputAmount });
+	private final NeuralNetwork neuralNetwork = new NeuralNetwork(new int[] { inputAmount, 12, outputAmount });
 	private final double[] inputs = new double[inputAmount];
 	private final double[] outputs = new double[outputAmount];
 	
@@ -32,7 +32,7 @@ public class Brain implements Serializable {
 		inputs[9] = energy;
 	}
 	
-	public void setTiles(double[] foods) {
+	public void setEnvironmentTiles(double[] foods) {
 		if (foods.length != 9) {
 			throw new IllegalArgumentException("Length must be 9");
 		}
@@ -42,8 +42,9 @@ public class Brain implements Serializable {
 		}
 	}
 	
-	public void setDirectionVector(Vector vector) {
-		
+	public void setDirectionVector(Vec2d vector) {
+		inputs[10] = vector.getX();
+		inputs[11] = vector.getY();
 	}
 	
 	public double getSpeed() {

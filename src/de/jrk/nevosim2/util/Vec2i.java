@@ -2,42 +2,42 @@ package de.jrk.nevosim2.util;
 
 import java.io.Serializable;
 
-public class Vector implements Serializable {
+public class Vec2i implements Serializable {
 	private static final long serialVersionUID = 9161810857195109198L;
-	double x;
-	double y;
+	int x;
+	int y;
 
-	public Vector() {
+	public Vec2i() {
 		this(0, 0);
 	}
 
-	public Vector(double x, double y) {
+	public Vec2i(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	public double getX() {
+	public int getX() {
 		return x;
 	}
 
-	public double getY() {
+	public int getY() {
 		return y;
 	}
 
-	public void setX(double x) {
+	public void setX(int x) {
 		this.x = x;
 	}
 
-	public void setY(double y) {
+	public void setY(int y) {
 		this.y = y;
 	}
 
-	public void add(Vector vector) {
+	public void add(Vec2i vector) {
 		x += vector.x;
 		y += vector.y;
 	}
 
-	public double getDistance(Vector vector) {
+	public double getDistance(Vec2i vector) {
 		return Math.sqrt(Math.pow(x - vector.x, 2) + Math.pow(y - vector.y, 2));
 	}
 

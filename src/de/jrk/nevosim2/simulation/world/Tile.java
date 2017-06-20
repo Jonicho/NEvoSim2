@@ -21,6 +21,9 @@ public class Tile implements Serializable {
 	}
 	
 	public double getFood() {
+		if (type == Type.WATER) {
+			return -1;
+		}
 		return food;
 	}
 	

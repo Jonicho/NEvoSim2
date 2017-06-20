@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 import de.jrk.nevosim2.simulation.creature.Creature;
 import de.jrk.nevosim2.simulation.world.Tile.Type;
-import de.jrk.nevosim2.util.Vector;
+import de.jrk.nevosim2.util.Vec2d;
 
 public class World implements Serializable {
 	private static final long serialVersionUID = -1441875949063228959L;
-	private final Tile[][] world = new Tile[100][100];
+	public final static Tile[][] world = new Tile[100][100];
 	private ArrayList<Creature> creatures = new ArrayList<>();
 	private final double GROW_VALUE = 0.001;
 
@@ -20,7 +20,7 @@ public class World implements Serializable {
 		generateRandomWorld();
 
 		for (int i = 0; i < 100; i++) {
-			creatures.add(new Creature(new Vector(Math.random(), Math.random())));
+			creatures.add(new Creature(new Vec2d(Math.random(), Math.random())));
 		}
 	}
 
@@ -49,8 +49,6 @@ public class World implements Serializable {
 					growCounter++;
 				}
 				
-//				if (growCounter > 0) growCounter = 1;
-				
 				world[x][y].grow(GROW_VALUE * growCounter);
 			}
 		}
@@ -68,10 +66,18 @@ public class World implements Serializable {
 			creatures.remove(creature);
 		}
 	}
+	
+	public static double getFood(int x, int y) {
+		if (x < 0 || y < 0 || x >= World.world.length || y >= World.world[0].length) {
+			return -1;
+		} else {
+			return World.world[x][y].getFood();
+		}
+	}
 
 	private boolean isFruitful(int x, int y) {
-		return x < 0 || y < 0 || x >= world.length || y >= world[0].length || world[x][y].getType() == Type.WATER
-				|| (world[x][y].getFood() > 0.9);
+		double food = getFood(x, y);
+		return food > 0.9 || food == -1;
 	}
 
 	public void draw(Graphics g, int screenSize) {
