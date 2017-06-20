@@ -58,7 +58,6 @@ public class Creature implements Serializable {
 
 		brain.calculate();
 		direction += brain.getRotation() / 100;
-		System.out.println(brain.getRotation() + "; " + brain.getSpeed());
 		speed = brain.getSpeed() / 1000;
 	}
 
