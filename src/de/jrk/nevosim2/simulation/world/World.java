@@ -27,7 +27,7 @@ public class World implements Serializable {
 	public void update() {
 		for (int y = 0; y < world.length; y++) {
 			for (int x = 0; x < world[0].length; x++) {
-				if (world[x][y].getType() == Type.WATER || world[x][y].getFood() == 1.0) {
+				if (world[x][y].getType() == Type.WATER || world[x][y].getGrass() == 1.0) {
 					continue;
 				}
 
@@ -71,8 +71,15 @@ public class World implements Serializable {
 		if (x < 0 || y < 0 || x >= World.world.length || y >= World.world[0].length) {
 			return -1;
 		} else {
-			return World.world[x][y].getFood();
+			return World.world[x][y].getGrass();
 		}
+	}
+	
+	public static boolean letEat(int x, int y, double eatValue) {
+		if (getFood(x, y) < eatValue) {
+			return false;
+		}
+		return World.world[x][y].letEat(eatValue);
 	}
 
 	private boolean isFruitful(int x, int y) {
@@ -88,7 +95,7 @@ public class World implements Serializable {
 			for (int x = 0; x < world[0].length; x++) {
 				switch (world[x][y].getType()) {
 				case LAND:
-					imgG.setColor(new Color((float) (1 - (world[x][y].getFood())), 1f, 0f));
+					imgG.setColor(new Color((float) (1 - (world[x][y].getGrass())), 1f, 0f));
 					break;
 				case WATER:
 					imgG.setColor(Color.BLUE);

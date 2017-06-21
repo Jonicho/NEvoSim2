@@ -10,7 +10,7 @@ public class Tile implements Serializable {
 	}
 	
 	private Type type;
-	private double food = 0;
+	private double grass = 0;
 	
 	public Tile(Type type) {
 		this.type = type;
@@ -20,15 +20,23 @@ public class Tile implements Serializable {
 		return type;
 	}
 	
-	public double getFood() {
+	public double getGrass() {
 		if (type == Type.WATER) {
 			return -1;
 		}
-		return food;
+		return grass;
 	}
 	
 	public void grow(double d) {
-		food += d;
-		if (food > 1.0) food = 1.0;
+		grass += d;
+		if (grass > 1.0) grass = 1.0;
+	}
+	
+	public boolean letEat(double d) {
+		if (d > grass || d < 0) {
+			return false;
+		}
+		grass -= d;
+		return true;
 	}
 }

@@ -20,9 +20,10 @@ public class Creature implements Serializable {
 	private double speed = 0;
 	private double energy = 0;
 	private boolean alive = true;
+	private double eatValue = 0.1;
 
 	public Creature(Vec2d pos) {
-		energy = 150;
+		energy = 1.5;
 		color = Color.RED;
 		this.pos = pos;
 	}
@@ -33,8 +34,14 @@ public class Creature implements Serializable {
 		tilePos = new Vec2i((int) (pos.getX() * World.world.length), (int) (pos.getY() * World.world[0].length));
 		
 		updateBrain();
+		
+		if (brain.getWantsEat()) {
+			if (World.letEat(tilePos.getX(), tilePos.getY(), eatValue)) {
+				energy += eatValue;
+			}
+		}
 
-		if (energy < 100) {
+		if (energy < 1) {
 			alive = false;
 		}
 	}

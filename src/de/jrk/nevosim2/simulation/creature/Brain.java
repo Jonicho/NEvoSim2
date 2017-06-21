@@ -9,7 +9,7 @@ import de.jrk.nevosim2.util.Vec2d;
 public class Brain implements Serializable {
 	private static final long serialVersionUID = 3824508521991639653L;
 	private final int inputAmount = 12;
-	private final int outputAmount = 2;
+	private final int outputAmount = 3;
 	private final NeuralNetwork neuralNetwork = new NeuralNetwork(new int[] { inputAmount, 12, outputAmount });
 	private final double[] inputs = new double[inputAmount];
 	private final double[] outputs = new double[outputAmount];
@@ -53,5 +53,9 @@ public class Brain implements Serializable {
 	
 	public double getRotation() {
 		return outputs[1];
+	}
+	
+	public boolean getWantsEat() {
+		return inputs[2] > 0;
 	}
 }

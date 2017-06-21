@@ -48,6 +48,13 @@ public class Gui implements Runnable {
 			});
 			menuBar.add(buttonSave);
 		}
+		{
+			JButton buttonDraw = new JButton("Draw");
+			buttonDraw.addActionListener(e -> {
+				screen.draw = !screen.draw;
+			});
+			menuBar.add(buttonDraw);
+		}
 		frame.setJMenuBar(menuBar);
 		
 		frame.addWindowListener(new WindowListenerImpl());

@@ -58,13 +58,19 @@ public class Simulation implements Runnable {
 		while (true) {
 			if (run) {
 				world.update();
-			}
-			if (!fast) {
+				if (!fast) {
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					} 
+				}
+			} else {
 				try {
 					Thread.sleep(10);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
-				} 
+				}
 			}
 		}
 	}

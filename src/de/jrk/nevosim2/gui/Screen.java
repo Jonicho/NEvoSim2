@@ -20,6 +20,7 @@ public class Screen extends JLabel {
 	private double zoom = 1;
 	private int posX;
 	private int posY;
+	public boolean draw = true;
 
 	public Screen() {
 		super();
@@ -36,7 +37,7 @@ public class Screen extends JLabel {
 		BufferedImage screenImage = new BufferedImage(screenSize, screenSize, BufferedImage.TYPE_INT_ARGB);
 		Graphics screenImageG = screenImage.getGraphics();
 
-		if (Main.simulation != null)
+		if (draw && Main.simulation != null)
 			Main.simulation.draw(screenImageG, screenSize);
 
 		g.drawImage(screenImage, posX, posY, screenSize, screenSize, this);
