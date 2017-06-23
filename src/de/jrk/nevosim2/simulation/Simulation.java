@@ -13,7 +13,7 @@ import de.jrk.nevosim2.simulation.world.World;
 
 public class Simulation implements Runnable {
 	
-	public World world;
+	public static World world;
 	public static boolean run = false;
 	public static boolean fast = false;
 	

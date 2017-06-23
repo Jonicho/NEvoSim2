@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.io.Serializable;
 
-import de.jrk.nevosim2.simulation.world.World;
+import de.jrk.nevosim2.simulation.Simulation;
 import de.jrk.nevosim2.util.Vec2d;
 import de.jrk.nevosim2.util.Vec2i;
 
@@ -31,12 +31,12 @@ public class Creature implements Serializable {
 	public void update() {
 		directionVector = new Vec2d(Math.sin(direction) * speed, Math.cos(direction) * speed);
 		pos.add(directionVector);
-		tilePos = new Vec2i((int) (pos.getX() * World.world.length), (int) (pos.getY() * World.world[0].length));
+		tilePos = new Vec2i((int) (pos.getX() * Simulation.world.world.length), (int) (pos.getY() * Simulation.world.world[0].length));
 		
 		updateBrain();
 		
 		if (brain.getWantsEat()) {
-			if (World.letEat(tilePos.getX(), tilePos.getY(), eatValue)) {
+			if (Simulation.world.letEat(tilePos.getX(), tilePos.getY(), eatValue)) {
 				energy += eatValue;
 			}
 		}
@@ -56,7 +56,7 @@ public class Creature implements Serializable {
 				for (int x = -1; x <= 1; x++) {
 					int posX = tilePos.getX() + x;
 					int posY = tilePos.getY() + y;
-					foods[i] = World.getFood(posX, posY);
+					foods[i] = Simulation.world.getFood(posX, posY);
 					i++;
 				}
 			}

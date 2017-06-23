@@ -12,7 +12,7 @@ import de.jrk.nevosim2.util.Vec2d;
 
 public class World implements Serializable {
 	private static final long serialVersionUID = -1441875949063228959L;
-	public final static Tile[][] world = new Tile[100][100];
+	public final Tile[][] world = new Tile[100][100];
 	private ArrayList<Creature> creatures = new ArrayList<>();
 	private final double GROW_VALUE = 0.001;
 
@@ -67,19 +67,19 @@ public class World implements Serializable {
 		}
 	}
 	
-	public static double getFood(int x, int y) {
-		if (x < 0 || y < 0 || x >= World.world.length || y >= World.world[0].length) {
+	public double getFood(int x, int y) {
+		if (x < 0 || y < 0 || x >= world.length || y >= world[0].length) {
 			return -1;
 		} else {
-			return World.world[x][y].getGrass();
+			return world[x][y].getGrass();
 		}
 	}
 	
-	public static boolean letEat(int x, int y, double eatValue) {
+	public boolean letEat(int x, int y, double eatValue) {
 		if (getFood(x, y) < eatValue) {
 			return false;
 		}
-		return World.world[x][y].letEat(eatValue);
+		return world[x][y].letEat(eatValue);
 	}
 
 	private boolean isFruitful(int x, int y) {
