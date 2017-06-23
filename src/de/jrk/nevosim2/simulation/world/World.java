@@ -48,7 +48,7 @@ public class World implements Serializable {
 				if (isFruitful(x, y - 1)) {
 					growCounter++;
 				}
-				
+
 				world[x][y].grow(GROW_VALUE * growCounter);
 			}
 		}
@@ -66,7 +66,7 @@ public class World implements Serializable {
 			creatures.remove(creature);
 		}
 	}
-	
+
 	public double getFood(int x, int y) {
 		if (x < 0 || y < 0 || x >= world.length || y >= world[0].length) {
 			return -1;
@@ -74,7 +74,7 @@ public class World implements Serializable {
 			return world[x][y].getGrass();
 		}
 	}
-	
+
 	public boolean letEat(int x, int y, double eatValue) {
 		if (getFood(x, y) < eatValue) {
 			return false;
@@ -126,7 +126,8 @@ public class World implements Serializable {
 		ValueNoise valueNoise = new ValueNoise();
 		for (int y = 0; y < world.length; y++) {
 			for (int x = 0; x < world[0].length; x++) {
-				world[x][y] = new Tile(valueNoise.get(x, y) > 0 ? Type.WATER : Type.LAND);
+				world[x][y] = new Tile(x == 0 || y == 0 || x == world.length - 1 || y == world[0].length - 1
+						|| valueNoise.get(x, y) < 0 ? Type.WATER : Type.LAND);
 			}
 		}
 	}

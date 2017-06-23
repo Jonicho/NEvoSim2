@@ -21,6 +21,7 @@ public class Creature implements Serializable {
 	private double energy = 0;
 	private boolean alive = true;
 	private double eatValue = 0.1;
+	private double waterDamage = 0.1;
 
 	public Creature(Vec2d pos) {
 		energy = 1.5;
@@ -39,6 +40,10 @@ public class Creature implements Serializable {
 			if (Simulation.world.letEat(tilePos.getX(), tilePos.getY(), eatValue)) {
 				energy += eatValue;
 			}
+		}
+		
+		if (Simulation.world.getFood(tilePos.getX(), tilePos.getY()) <= -1) {
+			energy -= waterDamage;
 		}
 
 		if (energy < 1) {
